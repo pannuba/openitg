@@ -6,6 +6,11 @@
 /* Not in glext.h: */
 typedef bool (APIENTRY * PWSWAPINTERVALEXTPROC) (int interval);
 
+// copied from the project's glext.h
+// maybe these are undefined because of the #ifndef GL_ARB_imaging? Deprecated??
+typedef void (APIENTRYP PFNGLCOLORTABLEPROC) (GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type, const GLvoid *table);
+typedef void (APIENTRYP PFNGLCOLORTABLEPARAMETERIVPROC) (GLenum target, GLenum pname, const GLint *params);
+
 class LowLevelWindow;
 struct GLExt_t
 {

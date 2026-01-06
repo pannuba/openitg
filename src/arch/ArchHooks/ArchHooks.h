@@ -3,6 +3,7 @@
 
 /* All ArchHooks require this header for filesystem mounts. */
 #include "RageFileManager.h"
+#include <ctime>
 
 class ArchHooks
 {

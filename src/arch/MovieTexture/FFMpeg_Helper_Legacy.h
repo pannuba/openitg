@@ -1,7 +1,14 @@
 #ifndef FFMPEG_HELPER
 #define FFMPEG_HELPER
 
-#define OITG_AV_PIXFMT_NAME avcodec::PixelFormat
+/*
+PixelFormat is only present in the version bundled in oitg, and was removed in all newer versions.
+Newer versions have "enum AVPixelFormat pix_fmt;" in avcodec.h (not avformat.h),
+which is functionally identical but has a different name.
+The new avformat.h has neither PixelFormat or AVPixelFormat.
+*/
+//#define OITG_AV_PIXFMT_NAME avcodec::PixelFormat
+#define OITG_AV_PIXFMT_NAME avcodec::AVPixelFormat
 #include "FFMpeg_Helper_Common.h"
 
 class FFMpeg_Helper

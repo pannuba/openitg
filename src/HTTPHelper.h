@@ -8,8 +8,11 @@
 #include "RageThreads.h"
 #include <sstream>
 #define HTTP_CHUNK_SIZE 1024 //matches EZSockets
-#define SSTR( x ) static_cast< std::ostringstream & >( \
-        ( std::ostringstream() << std::dec << x ) ).str()
+#define SSTR(x) ({ \
+    std::ostringstream oss; \
+    oss << std::dec << x; \
+    oss.str(); \
+})
 
 class HTTPHelper
 {

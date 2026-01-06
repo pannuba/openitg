@@ -1,6 +1,6 @@
 #include "global.h"
 
-#define __glext_h_
+//#define __glext_h_
 
 #if defined(WIN32)
 #include <windows.h>
@@ -16,8 +16,8 @@
 # include <OpenGL/glu.h>
 #endif
 
-#undef __glext_h_
-#include "glext.h"
+//#undef __glext_h_
+//#include "glext.h"
 
 #include "RageDisplay_OGL_Extensions.h"
 #include "RageLog.h"

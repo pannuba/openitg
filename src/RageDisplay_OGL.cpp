@@ -1,15 +1,17 @@
 #include "global.h"
 
 /* ours may be more up-to-date */
-#define __glext_h_
+//#define __glext_h_
+//#define GL_GLEXT_LEGACY
 
 #if defined(WIN32)
 #include <windows.h>
 #endif
 
 #if !defined(DARWIN)
-# include <GL/gl.h>
+# include <GL/gl.h>	// Including this will also include the system's glext.h resulting in conflicts
 # include <GL/glu.h>
+// Alternatively I can put the GL_GLEXT_LEGACY flag here and use the project's glext...
 #else
 /* XXX: Instead, try creating a directory "archutils/Darwin/include/GL", containing "gl.h" and
  * "glu.h", which each contain a single line "#include <OpenGL/gl.h>".  Then, add
@@ -19,8 +21,8 @@
 # include <OpenGL/glu.h>
 #endif
 
-#undef __glext_h_
-#include "glext.h"
+//#undef __glext_h_
+//#include "glext.h"
 
 #include "RageSurface.h"
 #include "RageSurfaceUtils.h"

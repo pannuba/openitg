@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstring>
 #include <cerrno>
+#include <ctime>
 #include <sys/stat.h>
 #include <sys/reboot.h>
 #include <sys/types.h>

@@ -85,8 +85,9 @@ if test "$with_ffmpeg" = "yes"; then
 
         CFLAGS="$ffmpeg_save_CFLAGS"
 		CXXFLAGS="$ffmpeg_save_CXXFLAGS"
-		LIBS="$ffmpeg_save_LIBS"
-
+		#LIBS="$ffmpeg_save_LIBS"
+		# Force using ffmpeg 3.1.11 in /src/ffmpeg
+		LIBS="-L$PWD/src/ffmpeg/lib -lavformat -lavcodec -lavutil -lswscale $LIBS"
         if test "$have_libavformat" = "yes" -a "$have_libavcodec" = "yes" \
                 -a "$have_libswscale" = "yes" -a "$have_libavutil" = "yes"; then
             have_ffmpeg=yes

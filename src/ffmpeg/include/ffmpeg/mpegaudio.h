@@ -1,10 +1,39 @@
+/*
+ * copyright (c) 2001 Fabrice Bellard
+ *
+ * This file is part of FFmpeg.
+ *
+ * FFmpeg is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * FFmpeg is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with FFmpeg; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ */
+
 /**
- * @file mpegaudio.h
+ * @file
  * mpeg audio declarations for both encoder and decoder.
  */
 
+#ifndef AVCODEC_MPEGAUDIO_H
+#define AVCODEC_MPEGAUDIO_H
+
+#ifndef USE_FLOATS
+#   define USE_FLOATS 0
+#endif
+
+#include <stdint.h>
+
 /* max frame size, in samples */
-#define MPA_FRAME_SIZE 1152 
+#define MPA_FRAME_SIZE 1152
 
 /* max compressed frame size */
 #define MPA_MAX_CODED_FRAME_SIZE 1792
@@ -18,14 +47,31 @@
 #define MPA_DUAL    2
 #define MPA_MONO    3
 
-int l2_select_table(int bitrate, int nb_channels, int freq, int lsf);
-int mpa_decode_header(AVCodecContext *avctx, uint32_t head);
+#ifndef FRAC_BITS
+#define FRAC_BITS   23   /* fractional bits for sb_samples and dct */
+#define WFRAC_BITS  16   /* fractional bits for window */
+#endif
 
-extern const uint16_t mpa_bitrate_tab[2][3][15];
-extern const uint16_t mpa_freq_tab[3];
-extern const unsigned char *alloc_tables[5];
-extern const double enwindow[512];
-extern const int sblimit_table[5];
-extern const int quant_steps[17];
-extern const int quant_bits[17];
-extern const int32_t mpa_enwindow[257];
+#define IMDCT_SCALAR 1.759
+
+#define FRAC_ONE    (1 << FRAC_BITS)
+
+#define FIX(a)   ((int)((a) * FRAC_ONE))
+
+#if USE_FLOATS
+#   define INTFLOAT float
+typedef float MPA_INT;
+typedef float OUT_INT;
+#elif FRAC_BITS <= 15
+#   define INTFLOAT int
+typedef int16_t MPA_INT;
+typedef int16_t OUT_INT;
+#else
+#   define INTFLOAT int
+typedef int32_t MPA_INT;
+typedef int16_t OUT_INT;
+#endif
+
+int ff_mpa_l2_select_table(int bitrate, int nb_channels, int freq, int lsf);
+
+#endif /* AVCODEC_MPEGAUDIO_H */
