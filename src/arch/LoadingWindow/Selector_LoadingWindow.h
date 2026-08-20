@@ -18,8 +18,6 @@
 #elif defined(HAVE_WIN32)
 #include "LoadingWindow_Win32.h"
 
-#elif defined(HAVE_XBOX)
-#include "LoadingWindow_Xbox.h"
 #endif
 
 #endif

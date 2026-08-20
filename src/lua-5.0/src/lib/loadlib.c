@@ -76,7 +76,7 @@ static int loadlib(lua_State *L)
 ** In Windows, default is to use dll; otherwise, default is not to use dll
 */
 #ifndef USE_DLL
-#if defined(_WIN32) && !defined(_XBOX)
+#if defined(_WIN32)
 #define USE_DLL	1
 #else
 #define USE_DLL	0
@@ -90,13 +90,10 @@ static int loadlib(lua_State *L)
 * This is an implementation of loadlib for Windows using native functions.
 */
 
-#ifndef _XBOX
 #include <windows.h>
-#endif
 
 static void pusherror(lua_State *L)
 {
-#ifndef _XBOX
  int error=GetLastError();
  char buffer[128];
  if (FormatMessage(FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
@@ -104,7 +101,6 @@ static void pusherror(lua_State *L)
   lua_pushstring(L,buffer);
  else
   lua_pushfstring(L,"system error %d\n",error);
-#endif
 }
 
 static int loadlib(lua_State *L)

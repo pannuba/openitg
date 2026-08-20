@@ -9,15 +9,7 @@
 
 #ifdef _MSC_VER
 #include "mad-0.15.1b/mad.h"
-#ifdef _XBOX
-#ifdef _DEBUG
-#pragma comment(lib, "mad-0.15.1b/xboxmad/debug/xboxmad.lib")
-#else
-#pragma comment(lib, "mad-0.15.1b/xboxmad/Release/xboxmad.lib")
-#endif
-#else
 #pragma comment(lib, "mad-0.15.1b/msvc++/Release/libmad.lib")
-#endif
 #else
 #include <mad.h>
 #endif

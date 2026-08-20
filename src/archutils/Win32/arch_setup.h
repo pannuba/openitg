@@ -1,9 +1,7 @@
 #ifndef ARCH_SETUP_WINDOWS_H
 #define ARCH_SETUP_WINDOWS_H
 
-#if !defined(XBOX)
 #define SUPPORT_OPENGL
-#endif
 
 /* We're using different macros through the codebase. Declare them all here: */
 #ifdef _WIN32
@@ -131,17 +129,9 @@ inline int lrintf( float f )
 
 /* We implement the crash handler interface (though that interface isn't completely
  * uniform across platforms yet). */
-#if defined(_XBOX)
-	// no crash handler on Xbox
-#else
 #  define CRASH_HANDLER
-#endif
 
 #define ENDIAN_LITTLE
-
-#if defined(XBOX)
-#include "ArchUtils/Xbox/arch_setup.h"
-#endif
 
 #define HAVE_BYTE_SWAPS
 

@@ -13,9 +13,6 @@
 #elif defined(HAVE_WIN32) // XXX: Better name for this API?
 #include "ArchHooks_Win32.h"
 
-#elif defined(HAVE_XBOX) // XXX: Better name for this API?
-#include "ArchHooks_Xbox.h"
-
 #else
 #error "No suitable ArchHooks available."
 #endif

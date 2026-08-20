@@ -14,7 +14,7 @@
 
 #include <cerrno>
 
-#if defined(WIN32) && !defined(XBOX)
+#if defined(WIN32)
 #include <windows.h>
 #endif
 

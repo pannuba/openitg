@@ -6,12 +6,10 @@
 #include "RageSurface.h"
 
 
-#if defined(_WINDOWS) || defined(_XBOX)
+#if defined(_WINDOWS)
 #  include "libpng/include/png.h"
 #  if defined(_MSC_VER)
-#  if defined(_XBOX)
-#    pragma comment(lib, "../extern/libpng/lib/xboxlibpng.lib")
-#  elif _MSC_VER == 1400 // Visual Studio 2005 -- MIA do not have
+#  if _MSC_VER == 1400 // Visual Studio 2005 -- MIA do not have
 #	 pragma comment(lib, "../extern/libpng/lib/vs2005/libpng.lib")
 #  elif _MSC_VER == 1500 // Visual Studio 2008 -- MIA do not have
 #	 pragma comment(lib, "../extern/libpng/lib/vs2008/libpng.lib")
@@ -35,10 +33,7 @@
 #  endif
 #endif
 
-#if defined(_XBOX)
-#  include <malloc.h>	// for alloca
-#  include "archutils/Xbox/VirtualMemory.h"
-#elif !defined(WIN32)
+#if !defined(WIN32)
 #  include <alloca.h>
 #endif
 
@@ -110,16 +105,6 @@ static RageSurface *RageSurface_Load_PNG( RageFile *f, const char *fn, char erro
 	error.fn = fn;
 
 	png_struct *png = png_create_read_struct( PNG_LIBPNG_VER_STRING, &error, PNG_Error, PNG_Warning );
-
-#if defined(XBOX)
-	while(png == NULL)
-	{
-		if(!vmem_Manager.DecommitLRU())
-			break;
-
-		png = png_create_read_struct( PNG_LIBPNG_VER_STRING, &error, PNG_Error, PNG_Warning );
-	}
-#endif
 
 	if( png == NULL )
 	{

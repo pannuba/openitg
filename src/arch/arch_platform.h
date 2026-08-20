@@ -18,10 +18,6 @@
 #define HAVE_WIN32 // XXX: Better name for this API?
 #define HAVE_CRYPTOPP
 #endif
-#if defined(_XBOX)
-#define HAVE_DIRECTX
-#define HAVE_XBOX // XXX: Better name for this API?
-#endif
 #if defined(LINUX)
 #define HAVE_UNIX	// Here just to be explicit.
 #define HAVE_LINUXKERNEL

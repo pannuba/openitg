@@ -130,11 +130,6 @@ InputHandler_SDL::InputHandler_SDL()
 {
 	SDL_InitSubSystem( SDL_INIT_JOYSTICK );
 
-#ifdef _XBOX
-	//strange hardware timing issue with 3rd party controllers
-	Sleep(750);
-#endif
-
 	SDL_EnableKeyRepeat( 0, 0 );
 
 	/* We can do this to get Unicode values in the key struct, which (with

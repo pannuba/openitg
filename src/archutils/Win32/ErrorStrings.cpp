@@ -2,9 +2,7 @@
 #include "ErrorStrings.h"
 #include "RageUtil.h"
 
-#if !defined(XBOX)
 #include <windows.h>
-#endif
 
 CString ConvertWstringToCodepage( wstring s, int iCodePage )
 {

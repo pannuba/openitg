@@ -16,9 +16,7 @@ namespace jpeg
 }
 
 /* Pull in JPEG library here. */
-#ifdef _XBOX
-#pragma comment(lib, "libjpeg/xboxjpeg.lib")
-#elif defined _MSC_VER
+#if defined _MSC_VER
 #pragma comment(lib, "libjpeg/jpeg.lib")
 #endif
 

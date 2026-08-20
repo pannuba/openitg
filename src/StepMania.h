@@ -3,11 +3,8 @@
 
 class Game;
 
-#ifdef _XBOX
-void __cdecl main();
-#else
 int main( int argc, char* argv[] );
-#endif
+
 void ApplyGraphicOptions();
 void NORETURN HandleException( CString error );
 void ExitGame();

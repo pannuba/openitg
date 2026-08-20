@@ -8,8 +8,6 @@
 	<Platforms>
 		<Platform
 			Name="Win32"/>
-		<Platform
-			Name="Xbox"/>
 	</Platforms>
 	<Configurations>
 		<Configuration
@@ -55,42 +53,6 @@
 				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
-		</Configuration>
-		<Configuration
-			Name="Release|Xbox"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
-			<Tool
-				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include"
-				PreprocessorDefinitions="WIN32,NDEBUG,_LIB,_XBOX"
-				StringPooling="TRUE"
-				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\obj/LibLua.pch"
-				AssemblerListingLocation=".\..\obj/"
-				ObjectFile=".\..\obj/"
-				ProgramDataBaseFileName=".\..\obj/"
-				WarningLevel="4"
-				SuppressStartupBanner="TRUE"
-				CompileAs="0"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="..\lib\LibLuaXbox.lib"
-				SuppressStartupBanner="TRUE"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
 		</Configuration>
 	</Configurations>
 	<Files>

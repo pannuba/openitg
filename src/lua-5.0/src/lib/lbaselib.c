@@ -419,10 +419,8 @@ static const char *getpath (lua_State *L) {
   path = lua_tostring(L, -1);
   lua_pop(L, 1);
   if (path) return path;
-#ifndef _XBOX
   path = getenv(LUA_PATH);  /* else try environment variable */
   if (path) return path;
-#endif
   return LUA_PATH_DEFAULT;  /* else use default */
 }
 

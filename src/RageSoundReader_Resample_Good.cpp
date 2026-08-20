@@ -3,20 +3,9 @@
 #include "RageSoundReader_Resample_Good.h"
 
 #include "libresample/include/libresample.h"
-#if defined(_MSC_VER) && !defined(_XBOX)
+#if defined(_MSC_VER)
 #pragma comment(lib, "libresample/resample.lib")
 #endif
-
-#ifdef _XBOX
-
-#ifdef _DEBUG
-#pragma comment(lib, "libresample/xboxresample/debug/xboxresample.lib")
-#else
-#pragma comment(lib, "libresample/xboxresample/release/xboxresample.lib")
-#endif
-
-#endif
-
 
 #define channels source->GetNumChannels()
 

@@ -16,7 +16,7 @@ LoadingWindow *LoadingWindow::Create()
 	if( !g_bShowLoadingWindow )
 		return new LoadingWindow_Null;
 
-	const CString drivers = "xbox,win32,cocoa,gtk,sdl";
+	const CString drivers = "win32,cocoa,gtk,sdl";
 	vector<CString> DriversToTry;
 	split( drivers, ",", DriversToTry, true );
 

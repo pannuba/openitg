@@ -19,9 +19,7 @@
 #define write _write
 #define close _close
 #define rmdir _rmdir
-#if !defined(_XBOX)
 #include <windows.h>
-#endif
 #include <io.h>
 #endif
 

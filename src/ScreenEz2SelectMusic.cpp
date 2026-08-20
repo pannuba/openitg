@@ -158,13 +158,7 @@ void ScreenEz2SelectMusic::Init()
 		m_InfoFrame.SetXY( INFOFRAME_X, INFOFRAME_Y );
 		this->AddChild( &m_InfoFrame );
 
-#ifdef _XBOX
-		//shorten filenames for FATX
-		m_PumpDifficultyCircle.Load( THEME->GetPathG("ScreenEz2SelectMusic","diff frame"));
-#else
 		m_PumpDifficultyCircle.Load( THEME->GetPathG("ScreenEz2SelectMusic","difficulty frame"));
-#endif
-
 		m_PumpDifficultyCircle.SetXY( PUMP_DIFF_X, PUMP_DIFF_Y );
 		this->AddChild( &m_PumpDifficultyCircle );
 

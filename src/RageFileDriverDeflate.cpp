@@ -5,7 +5,7 @@
 #include "RageLog.h"
 #include "RageUtil.h"
 
-#if defined(_MSC_VER) || defined(_XBOX)
+#if defined(_MSC_VER)
         #include "zlib/zlib.h"
         #pragma comment(lib, "zlib/zdll.lib")
 #elif defined(DARWIN)
@@ -44,10 +44,6 @@ RageFileObjInflate::RageFileObjInflate( RageFileBasic *pFile, int iUncompressedS
 RageFileObjInflate::RageFileObjInflate( const RageFileObjInflate &cpy ):
 	RageFileObj( cpy )
 {
-#ifdef XBOX
-	RageException::Throw( "Xbox oITG build can't support copying inflated files." );
-#endif
-
 	/* XXX completely untested */
 	/* Copy the entire decode state. */
 	/* inflateInit2 isn't widespread yet */
@@ -57,9 +53,7 @@ RageFileObjInflate::RageFileObjInflate( const RageFileObjInflate &cpy ):
 	m_bFileOwned = true;
 	m_pInflate = new z_stream;
 // can't compile due to this statement, for some reason... - Vyhd
-#ifndef XBOX
 	inflateCopy( m_pInflate, const_cast<z_stream*>(cpy.m_pInflate) );
-#endif
 	m_iUncompressedSize = cpy.m_iUncompressedSize;
 
 	decomp_buf_ptr = decomp_buf + (cpy.decomp_buf_ptr - cpy.decomp_buf);

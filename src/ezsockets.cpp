@@ -9,8 +9,7 @@
 #include "global.h"
 #include "ezsockets.h"
 
-#if defined(_XBOX)
-#elif defined(_MSC_VER) && !defined(_XBOX) // We need the WinSock32 Library on Windows
+#if defined(_MSC_VER) // We need the WinSock32 Library on Windows
 #pragma comment(lib,"wsock32.lib")
 #else
 #include <sys/types.h>
@@ -38,7 +37,7 @@ EzSockets::EzSockets()
 	MAXCON = 5;
 	memset (&addr,0,sizeof(addr)); //Clear the sockaddr_in structure
 	
-#if defined(_WINDOWS) || defined(_XBOX) // Windows REQUIRES WinSock Startup
+#if defined(_WINDOWS) // Windows REQUIRES WinSock Startup
 	WSAStartup( MAKEWORD(1,1), &wsda );
 #endif
 	
@@ -67,11 +66,7 @@ void EzSockets::setTimeout(int sec, int usec)
 //Check to see if the socket has been created
 bool EzSockets::check()
 {
-#if !defined(XBOX)
 	return sock > SOCKET_NONE;
-#else
-	return sock != INVALID_SOCKET;
-#endif
 }
 
 bool EzSockets::create()
@@ -88,15 +83,7 @@ bool EzSockets::create(int Protocol)
 	case IPPROTO_UDP:
 		return create(IPPROTO_UDP, SOCK_DGRAM);
 	default:
-		//XBOX does not support the raw socket.
-		//So, since there's no need, we aren't
-		//going to allow it on XBOX
-#if defined(_XBOX)
-		return false;
-#else
-		return create(Protocol, SOCK_RAW);
-#endif
-			
+		return create(Protocol, SOCK_RAW);	
 	}
 }
 
@@ -105,11 +92,7 @@ bool EzSockets::create(int Protocol, int Type)
 	state = skDISCONNECTED;
 	sock = socket(AF_INET, Type, Protocol);
 	lastCode = sock;
-#if !defined(XBOX)
 	return sock > SOCKET_NONE;	//Socket must be Greater than 0
-#else
-	return sock != INVALID_SOCKET;
-#endif
 }
 
 
@@ -208,32 +191,12 @@ bool EzSockets::connect(const std::string& host, unsigned short port)
 	if(!check())
 		return false;
 	
-#if defined(_XBOX)
-	if(!isdigit(host[0])) // don't do a DNS lookup for an IP address
-	{
-		XNDNS *pxndns = NULL;
-		XNetDnsLookup(host.c_str(), NULL, &pxndns);
-		while (pxndns->iStatus == WSAEINPROGRESS)
-		{
-			// Do something else while lookup is in progress
-		}
-		
-		if (pxndns->iStatus == 0)
-			memcpy(&addr.sin_addr, &pxndns->aina[0], sizeof(struct in_addr));
-		else
-			return false;
-		
-		XNetDnsRelease(pxndns);
-	}
-	else
-		addr.sin_addr.s_addr = inet_addr(host.c_str());
-#else
 	struct hostent* phe;
 	phe = gethostbyname(host.c_str());
 	if (phe == NULL)
 		return false;
 	memcpy(&addr.sin_addr, phe->h_addr, sizeof(struct in_addr));
-#endif 
+
 	addr.sin_family = AF_INET;
 	addr.sin_port   = htons(port);
 	

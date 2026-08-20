@@ -36,13 +36,6 @@ void ScreenMapControllers::Init()
 {
 	ScreenWithMenuElements::Init();
 
-#ifdef _XBOX
-	CStringArray strArray;
-	CString text("Use joypad to navigate, START to assign, A, B, X or Y to clear, BACK when done.");
-	strArray.push_back(text);
-	m_textHelp->SetTips(strArray);
-#endif
-
 	for( int b=0; b<GAMESTATE->GetCurrentGame()->m_iButtonsPerController; b++ )
 	{
 		CString sName = GAMESTATE->GetCurrentGame()->m_szButtonNames[b];
@@ -172,28 +165,6 @@ void ScreenMapControllers::Input( const DeviceInput& DeviceI, const InputEventTy
 
 	int button = DeviceI.button;
 
-#ifdef _XBOX
-	if(!m_iWaitingForPress && DeviceI.device == DEVICE_JOY1)
-	{
-		// map the xbox controller buttons to the keyboard equivalents
-		if(DeviceI.button == JOY_HAT_LEFT)
-			button = KEY_LEFT;
-		else if(DeviceI.button == JOY_HAT_RIGHT)
-			button = KEY_RIGHT;
-		else if(DeviceI.button == JOY_HAT_UP)
-			button = KEY_UP;
-		else if(DeviceI.button == JOY_HAT_DOWN)
-			button = KEY_DOWN;
-		else if(DeviceI.button == JOY_AUX_1)
-			button = KEY_ENTER;
-		else if(DeviceI.button == JOY_AUX_2)
-			button = KEY_ESC;
-		else if(DeviceI.button == JOY_1 || DeviceI.button == JOY_2 ||
-				DeviceI.button == JOY_3 || DeviceI.button == JOY_4)
-			button = KEY_DEL;
-	}
-#endif
-
 	//
 	// TRICKY:  Some adapters map the PlayStation digital d-pad to both axes and
 	// buttons.  We want buttons to be used for any mappings where possible because
@@ -229,11 +200,8 @@ void ScreenMapControllers::Input( const DeviceInput& DeviceI, const InputEventTy
 			m_DeviceIToMap = DeviceI;
 		}
 	}
-#ifdef _XBOX
-	else if( DeviceI.device == DEVICE_JOY1 )
-#else
+
 	else if( DeviceI.device == DEVICE_KEYBOARD )
-#endif
 	{
 		switch( button )
 		{
@@ -247,10 +215,8 @@ void ScreenMapControllers::Input( const DeviceInput& DeviceI, const InputEventTy
 		 * pressed up on the joypad. */
 
 		case KEY_DEL:
-#ifndef _XBOX
 		case KEY_SPACE:
 		case KEY_BACK: /* Clear the selected input mapping. */
-#endif
 			{
 				GameInput curGameI( (GameController)m_iCurController, (GameButton)m_iCurButton );
 				INPUTMAPPER->ClearFromInputMap( curGameI, m_iCurSlot );

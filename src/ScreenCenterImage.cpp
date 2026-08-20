@@ -18,13 +18,6 @@ ScreenCenterImage::ScreenCenterImage( CString sClassName ) : ScreenWithMenuEleme
 void ScreenCenterImage::Init()
 {
 	ScreenWithMenuElements::Init();
-
-#if defined(XBOX)
-	CStringArray strArray;
-	CString text("Use the left analog stick to translate the screen and right right analog stick to scale");
-	strArray.push_back(text);
-	m_textHelp->SetTips(strArray);
-#endif
 	
 	m_textInstructions.LoadFromFont( THEME->GetPathF("Common","normal") );
 	m_textInstructions.SetText( "" );

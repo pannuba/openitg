@@ -61,16 +61,6 @@ AutoScreenMessage( SM_DoSaveAndExit )
 AutoScreenMessage( SM_DoExit )
 
 const CString INPUT_TIPS_TEXT = 
-#if defined(XBOX)
-	"Up/Down:\n     change beat\n"
-	"Left/Right:\n     change snap\n"
-	"A/B/X/Y:\n     add/remove\n     tap note\n"
-	"Create hold note:\n     Hold a button\n     while moving\n     Up or Down\n"
-	"White:\n     Set area\n     marker\n"
-	"Start:\n     Area Menu\n"
-	"Select:\n     Main Menu\n"
-	"Black:\n     Show\n     shortcuts\n";
-#else
 	"Up/Down:\n     change beat\n"
 	"Left/Right:\n     change snap\n"
 	"Number keys:\n     add/remove\n     tap note\n"
@@ -79,14 +69,8 @@ const CString INPUT_TIPS_TEXT =
 	"Enter:\n     Area Menu\n"
 	"Escape:\n     Main Menu\n"
 	"F1:\n     Show help\n";
-#endif
 
-#if defined(XBOX)
-void ScreenEdit::InitEditMappings()
-{
-	/* XXX: fill this in */
-}
-#else
+
 void ScreenEdit::InitEditMappings()
 {
 	g_EditMappings.Clear();
@@ -210,8 +194,6 @@ void ScreenEdit::InitEditMappings()
 	g_RecordMappings.button[EDIT_BUTTON_RETURN_TO_EDIT][0] = DeviceInput(DEVICE_KEYBOARD, KEY_ESC);
 }
 
-#endif
-
 /* Given a DeviceInput that was just depressed, return an active edit function. */
 bool ScreenEdit::DeviceToEdit( DeviceInput DeviceI, EditButton &button ) const
 {
@@ -330,18 +312,7 @@ const MapEditToDI *ScreenEdit::GetCurrentMap() const
 
 static Menu g_EditHelp(
 	"ScreenMiniMenuEditHelp",
-#if defined(XBOX)
-	MenuRow( -1, "L + Up/Down: Change zoom",						false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "R + Up/Down: Drag area marker",					false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "L + Select: Play selection",						false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "R + Start: Play whole song",						false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "R + Select: Record",								false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "L + Black: Toggle assist tick",					false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "R + White: Insert beat and shift down",			false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "R + Black: Delete beat and shift up",				false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "R + button: Lay mine",							false, EDIT_MODE_PRACTICE, 0, NULL ),
-	MenuRow( -1, "L + button: Add to/remove from right half",		false, EDIT_MODE_PRACTICE, 0, NULL )
-#else
+
 	MenuRow( -1, "PgUp/PgDn: jump measure",							false, EDIT_MODE_PRACTICE, 0, NULL ),
 	MenuRow( -1, "Home/End: jump to first/last beat",				false, EDIT_MODE_PRACTICE, 0, NULL ),
 	MenuRow( -1, "Ctrl + Up/Down: Change zoom",						false, EDIT_MODE_PRACTICE, 0, NULL ),
@@ -370,7 +341,6 @@ static Menu g_EditHelp(
 																	false, EDIT_MODE_PRACTICE, 0, NULL ),
 	MenuRow( -1, "Shift + number: Lay mine",						false, EDIT_MODE_PRACTICE, 0, NULL ),
 	MenuRow( -1, "Alt + number: Add to/remove from right half",		false, EDIT_MODE_PRACTICE, 0, NULL )
-#endif
 );
 
 static Menu g_MainMenu(

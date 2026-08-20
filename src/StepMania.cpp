@@ -60,15 +60,9 @@
 #include "UserPackManager.h"
 
 // XXX: for I/O error reports
-#if !defined(XBOX)
 #include "io/ITGIO.h"
-#endif
 
-#if defined(XBOX)
-#include "Archutils/Xbox/VirtualMemory.h"
-#endif
-
-#if defined(WIN32) && !defined(XBOX)
+#if defined(WIN32)
 #include <windows.h>
 #include "archutils/Win32/VideoDriverInfo.h"
 #endif
@@ -425,14 +419,6 @@ struct VideoCardDefaults
 } const g_VideoCardDefaults[] = 
 {
 	{
-		"Xbox",
-		"d3d,opengl",
-		600,400,
-		32,32,32,
-		2048,
-		true
-	},
-	{
 		"Voodoo *5",
 		"d3d,opengl",	// received 3 reports of opengl crashing. -Chris
 		640,480,
@@ -605,8 +591,6 @@ static CString GetVideoDriverName()
 {
 #if defined(_WINDOWS)
 	return GetPrimaryVideoDriverName();
-#elif defined(_XBOX)
-	return "Xbox";
 #else
     return "OpenGL";
 #endif
@@ -856,11 +840,8 @@ static void MountTreeOfZips( const CString &dir, bool recurse = true )
 		CString path = dirs.back();
 		dirs.pop_back();
 
-#if !defined(XBOX)
-		// Xbox doesn't detect directories properly, so we'll ignore this
 		if( !IsADirectory(path) )
 			continue;
-#endif
 
 		vector<CString> zips;
 		GetDirListing( path + "/*.zip", zips, false, true );
@@ -961,17 +942,8 @@ bool GetCommandlineArgument( const CString &option, CString *argument, int iInde
 	return false;
 }
 
-#ifdef _XBOX
-void __cdecl main()
-#else
 int main(int argc, char* argv[])
-#endif
 {
-#if defined(XBOX)
-	int argc = 1;
-	char *argv[] = {"default.xbe"};
-#endif
-
 	g_argc = argc;
 	g_argv = argv;
 
@@ -1006,18 +978,6 @@ int main(int argc, char* argv[])
 	PREFSMAN	= new PrefsManager;
 
 	ApplyLogPreferences();
-
-#if defined(XBOX)
-	if(PREFSMAN->m_bEnableVirtualMemory)
-	{
-		if(!vmem_Manager.Init(1024 * 1024 * PREFSMAN->m_iPageFileSize, 1024 * PREFSMAN->m_iPageSize, 1024 * PREFSMAN->m_iPageThreshold))
-			return;
-	}
-
-	/* Logging the virtual memory manager seems to crash on exit, so it should be enabled only
-	 * for debugging. */
-	vmem_Manager.SetLogging(PREFSMAN->m_bLogVirtualMemory);
-#endif
 
 	WriteLogHeader();
 
@@ -1236,9 +1196,7 @@ int main(int argc, char* argv[])
 	}
 #endif
 	
-#ifndef _XBOX
 	return 0;
-#endif
 }
 
 CString SaveScreenshot( CString sDir, bool bSaveCompressed, bool bMakeSignature, int iIndex )
@@ -1554,7 +1512,6 @@ static void GameLoop()
 		 * Update
 		 */
 
-#ifndef XBOX
 		// XXX: the Iow InputHandler acts as a singleton removed from
 		// the game loop. It needs an external error monitor because
 		// it waits until reconnecting to continue...can we improve this?
@@ -1563,7 +1520,6 @@ static void GameLoop()
 			SCREENMAN->SystemMessage( ITGIO::m_sInputError );
 			ITGIO::m_sInputError.clear();
 		}
-#endif
 
 		float fDeltaTime = timer.GetDeltaTime();
 

@@ -298,14 +298,6 @@ PrefsManager::PrefsManager() :
 	m_sTheme						( "Theme",						"default" ),
 	m_sDefaultModifiers				( "DefaultModifiers",			"" )
 
-#if defined(XBOX)
-	,
-	m_bEnableVirtualMemory		( "EnableVirtualMemory",			true ),
-	m_iPageFileSize				( "PageFileSize",					384 ),
-	m_iPageSize					( "PageSize",						16 ),
-	m_iPageThreshold			( "PageThreshold",					8 ),
-	m_bLogVirtualMemory 		( "LogVirtualMemory",				false )
-#endif
 {
 	Init();
 	ReadGlobalPrefsFromDisk();

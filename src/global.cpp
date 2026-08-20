@@ -4,7 +4,6 @@
 #  define _WIN32_WINDOWS 0x0410 // include Win98 stuff
 #  include "windows.h"
 #  include "archutils/Win32/Crash.h"
-#elif defined(_XBOX)
 #else
 #  include <unistd.h>
 #endif

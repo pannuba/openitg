@@ -11,60 +11,16 @@
 #include <dirent.h>
 #include <fcntl.h>
 #else
-#if !defined(_XBOX)
 #include <windows.h>
-#endif
 #include <io.h>
 #endif
 
 CString DoPathReplace( const CString &sOldPath )
 {
 	CString sTemp = sOldPath;
-#ifdef _XBOX
-	sTemp.Replace( "//", "\\" );
-	sTemp.Replace( "/", "\\" );
-#endif
+
 	return sTemp;
 }
-
-#if defined(_XBOX)
-/* Wrappers for low-level file functions, to work around Xbox issues: */
-int DoMkdir( const CString &sPath, int perm )
-{
-	return mkdir( DoPathReplace(sPath), perm );
-}
-
-int DoOpen( const CString &sPath, int flags, int perm )
-{
-	return open( DoPathReplace(sPath), flags, perm );
-}
-
-int DoStat( const CString &sPath, struct stat *st )
-{
-	return stat( DoPathReplace(sPath), st );
-}
-
-int DoRename( const CString &sOldPath, const CString &sNewPath )
-{
-	return rename( DoPathReplace(sOldPath), DoPathReplace(sNewPath) );
-}
-
-int DoRemove( const CString &sPath )
-{
-	return remove( DoPathReplace(sPath) );
-}
-
-int DoRmdir( const CString &sPath )
-{
-	return rmdir( DoPathReplace(sPath) );
-}
-
-HANDLE DoFindFirstFile( const CString &sPath, WIN32_FIND_DATA *fd )
-{
-	return FindFirstFile( DoPathReplace(sPath), fd );
-}
-
-#endif
 
 #if defined(WIN32)
 static bool WinMoveFileInternal( const CString &sOldPath, const CString &sNewPath )
@@ -198,13 +154,6 @@ void DirectFilenameDB::SetRoot( CString root_ )
 void DirectFilenameDB::PopulateFileSet( FileSet &fs, const CString &path )
 {
 	CString sPath = path;
-
-#if defined(XBOX)
-	/* Xbox doesn't handle path names which end with ".", which are used when using an
-	 * alternative song directory */
-	if( sPath.size() > 0 && sPath.Right(1) == "." )
-		sPath.erase( sPath.size() - 1 );
-#endif
 
 	/* Resolve path cases (path/Path -> PATH/path). */
 	ResolvePath( sPath );

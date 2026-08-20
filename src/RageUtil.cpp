@@ -342,15 +342,11 @@ CString vssprintf( const char *szFormat, va_list argList )
 
 #ifdef WIN32
 
-#ifdef _XBOX
-#  include <D3DX8Core.h>
-#else
 #  include <windows.h>
 #  include <DxErr.h>
-#  if defined(_MSC_VER) && !defined(_XBOX)
+#  if defined(_MSC_VER)
 #    pragma comment(lib, "DxErr.lib")
 #  endif
-#endif
 
 CString hr_ssprintf( int hr, const char *fmt, ...)
 {
@@ -359,12 +355,7 @@ CString hr_ssprintf( int hr, const char *fmt, ...)
     CString s = vssprintf( fmt, va );
     va_end(va);
 
-#ifdef _XBOX
-	char szError[1024] = "";
-	D3DXGetErrorString( hr, szError, sizeof(szError) );
-#else	
 	const char *szError = DXGetErrorString(hr);
-#endif
 
 	return s + ssprintf( " (%s)", szError );
 }
@@ -372,10 +363,8 @@ CString hr_ssprintf( int hr, const char *fmt, ...)
 CString werr_ssprintf( int err, const char *fmt, ...)
 {
 	char buf[1024] = "";
-#ifndef _XBOX
 	FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
 		0, err, 0, buf, sizeof(buf), NULL);
-#endif
 
 	/* Why is FormatMessage returning text ending with \r\n? */
 	CString text = buf;
@@ -647,14 +636,10 @@ CString GetFileNameWithoutExtension( const CString &sPath )
 
 CString GetCwd()
 {
-#ifdef _XBOX
-	return SYS_BASE_PATH;
-#else
 	char buf[PATH_MAX];
 	bool ret = getcwd(buf, PATH_MAX) != NULL;
 	ASSERT(ret);
 	return buf;
-#endif
 }
 
 /*

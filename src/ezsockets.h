@@ -20,14 +20,7 @@
 #include <ctype.h>
 #include "global.h" // StepMania only includes
 
-#if defined(_XBOX)
-// Summary : WinsockX is bad, XTL is good.
-// Explained : WinsockX may rely on some declares 
-//			   that are present in XTL. Also, using
-//			   XTL includes some files maybe needed
-//			   for other operations on Xbox.
-#include <xtl.h>
-#elif defined(_WINDOWS)
+#if defined(_WINDOWS)
 #include <winsock2.h>
 #else
 #include <netinet/in.h>
@@ -140,8 +133,8 @@ public:
 
 private:
 
-	//Only necessiary in windows, xbox
-#if defined(_WINDOWS) || defined(_XBOX)
+	//Only necessiary in windows
+#if defined(_WINDOWS)
 	WSADATA wsda;
 #endif
 

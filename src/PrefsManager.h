@@ -315,16 +315,6 @@ public:
 	Preference<CString> m_sTheme;
 	Preference<CString>	m_sDefaultModifiers;
 
-#if defined(XBOX)
-	// Virtual memory preferences
-	Preference<bool>	m_bEnableVirtualMemory;
-	Preference<int>		m_iPageFileSize; // page file size in megabytes
-	Preference<int>		m_iPageSize; // page size in kilobytes
-	Preference<int>		m_iPageThreshold; // threshold in kilobytes where virtual memory will be used
-	Preference<bool>	m_bLogVirtualMemory; // (under debug) log the virtual memory allocation, etc.
-#endif
-
-
 	// wrappers
 	CString GetVideoRenderers();
 	float GetSoundVolume();

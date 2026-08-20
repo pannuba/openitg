@@ -108,9 +108,6 @@ static bool GetSha1ForFile( CString &sFile, unsigned char *szHash )
 
 bool CryptHelpers::GenerateRSAKey( unsigned int keyLength, CString sSeed, CString &sPublicKey, CString &sPrivateKey )
 {
-#ifdef _XBOX
-	return false;
-#else
 	int iRet;
 	rsa_key key;
 
@@ -141,14 +138,10 @@ bool CryptHelpers::GenerateRSAKey( unsigned int keyLength, CString sSeed, CStrin
 
 	PKCS8EncodePrivateKey( buf, bufsize, sPrivateKey );
 	return true;
-#endif
 }
 
 bool CryptHelpers::SignFile( RageFileBasic &file, CString sPrivKey, CString &sSignatureOut, CString &sError )
 {
-#ifdef _XBOX
-	return false;
-#else
 	unsigned char embedded_key[4096], filehash[20], sig[128];
 	unsigned long keysize = 4096, sigsize = 128;
 	int ret;
@@ -180,7 +173,6 @@ bool CryptHelpers::SignFile( RageFileBasic &file, CString sPrivKey, CString &sSi
 
 	sSignatureOut.assign( (const char *)sig, sigsize );
 	return true;
-#endif
 }
 
 bool CryptHelpers::VerifyFile( RageFileBasic &file, CString sSignature, CString sPublicKey, CString &sError )

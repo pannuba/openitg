@@ -5,15 +5,6 @@
 
 #include <fcntl.h>
 
-#if defined(_XBOX)
-int DoMkdir( const CString &sPath, int perm );
-int DoOpen( const CString &sPath, int flags, int perm );
-int DoStat( const CString &sPath, struct stat *st );
-int DoRename( const CString &sOldPath, const CString &sNewPath );
-int DoRemove( const CString &sPath );
-int DoRmdir( const CString &sPath );
-HANDLE DoFindFirstFile( const CString &sPath, WIN32_FIND_DATA *fd );
-#else
 #define DoOpen open
 #define DoStat stat
 #define DoMkdir mkdir
@@ -21,7 +12,6 @@ HANDLE DoFindFirstFile( const CString &sPath, WIN32_FIND_DATA *fd );
 #define DoRename rename
 #define DoRemove remove
 #define DoRmdir rmdir
-#endif
 
 #if defined(WIN32)
 bool WinMoveFile( CString sOldPath, CString sNewPath );
