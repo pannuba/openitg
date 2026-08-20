@@ -22,9 +22,14 @@ if test "$with_ffmpeg" = "yes"; then
 		ffmpeg_save_CXXFLAGS="$CXXFLAGS"
 		ffmpeg_save_LIBS="$LIBS"
 
-        FFMPEG_CFLAGS="$AVUTIL_CFLAGS $AVCODEC_CFLAGS $AVFORMAT_CFLAGS $SWSCALE_CFLAGS"
-		FFMPEG_CXXFLAGS="$AVUTIL_CFLAGS $AVCODEC_CFLAGS $AVFORMAT_CFLAGS $SWSCALE_CFLAGS"
-		FFMPEG_LIBS="$AVUTIL_LIBS $AVCODEC_LIBS $AVFORMAT_LIBS $SWSCALE_LIBS"
+        # IIRC the bundled ffmpeg used to be the "legacy" one. Now we're using it under the system "if" in this file
+        # God what a mess. ALWAYS USE THE BUNDLED FFMPEG
+        # TODO: remove distinction between system and legacy ffmpeg
+        #FFMPEG_CFLAGS="$AVUTIL_CFLAGS $AVCODEC_CFLAGS $AVFORMAT_CFLAGS $SWSCALE_CFLAGS"
+		#FFMPEG_CXXFLAGS="$AVUTIL_CFLAGS $AVCODEC_CFLAGS $AVFORMAT_CFLAGS $SWSCALE_CFLAGS"
+		FFMPEG_CFLAGS="-I$PWD/src/ffmpeg/include"
+        FFMPEG_CXXFLAGS="-I$PWD/src/ffmpeg/include"
+        FFMPEG_LIBS="$AVUTIL_LIBS $AVCODEC_LIBS $AVFORMAT_LIBS $SWSCALE_LIBS"
 
         CFLAGS="$FFMPEG_CFLAGS $CFLAGS"
 		CXXFLAGS="$FFMPEG_CXXFLAGS $CXXFLAGS"
@@ -87,7 +92,9 @@ if test "$with_ffmpeg" = "yes"; then
 		CXXFLAGS="$ffmpeg_save_CXXFLAGS"
 		#LIBS="$ffmpeg_save_LIBS"
 		# Force using ffmpeg 3.1.11 in /src/ffmpeg
-		LIBS="-L$PWD/src/ffmpeg/lib -lavformat -lavcodec -lavutil -lswscale $LIBS"
+		#LIBS="-L$PWD/src/ffmpeg/lib -lavformat -lavcodec -lavutil -lswscale -lva $LIBS"
+		LIBS="-L$PWD/src/ffmpeg/lib -lavformat -lavcodec -lavutil -lswscale -lswresample -lva -lva-drm -lva-x11 -lz -lbz2 -lpng -ljpeg -lpthread"
+        # This if below likely returned false for setup 1, but true on setup 2 which breaks compilation
         if test "$have_libavformat" = "yes" -a "$have_libavcodec" = "yes" \
                 -a "$have_libswscale" = "yes" -a "$have_libavutil" = "yes"; then
             have_ffmpeg=yes
@@ -96,7 +103,7 @@ if test "$with_ffmpeg" = "yes"; then
             
             CFLAGS="$FFMPEG_CFLAGS $CFLAGS"
 		    CXXFLAGS="$FFMPEG_CXXFLAGS $CXXFLAGS"
-		    LIBS="$FFMPEG_LIBS $LIBS"
+		    #LIBS="$FFMPEG_LIBS $LIBS"
         fi
     else
         have_ffmpeg=yes

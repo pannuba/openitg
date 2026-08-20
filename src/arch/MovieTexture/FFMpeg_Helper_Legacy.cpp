@@ -1,3 +1,5 @@
+/* DEPRECATED, only use bundled ffmpeg. delete eventually */
+
 #include "global.h"
 #include "RageLog.h"
 #include "FFMpeg_Helper_Legacy.h"

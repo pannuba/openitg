@@ -1,3 +1,5 @@
+/* DEPRECATED, only use bundled ffmpeg. delete eventually */
+
 #ifndef FFMPEG_HELPER
 #define FFMPEG_HELPER
 

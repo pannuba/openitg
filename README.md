@@ -75,11 +75,12 @@ distributions...
 ## How to build for home on 64-bit Ubuntu:
 ```shell
 # Install required dependencies
-sudo apt install git build-essential autoconf automake \
-libgl1-mesa-dev libglu1-mesa-dev libpng12-dev \
+sudo apt install git build-essential autoconf automake gettext \
+libgl1-mesa-dev libglu1-mesa-dev libpng-dev \
 libjpeg62-dev liblua5.1-0-dev libvorbis-dev libmad0-dev \
 libusb-dev libxrandr-dev libavcodec-dev libswscale-dev \
-libavformat-dev libasound2-dev libavutil-dev
+libavformat-dev libasound2-dev libavutil-dev libva-dev libva-x11-2 \
+zlib1g-dev libpng-dev libjpeg-dev libbz2-dev libva-drm2
 
 # Clone the software
 git clone https://github.com/openitg/openitg.git
