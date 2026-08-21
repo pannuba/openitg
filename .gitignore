@@ -1,4 +1,5 @@
-*.[oa]
+*~
+*.o
 *.Po
 *.exe
 *.in
@@ -21,7 +22,6 @@ src/Makefile
 src/archutils/Unix/verinc
 src/config.h
 stamp-h1
-version.h
 version.txt
 assets/utilities/itg2-util/src/.deps/
 assets/utilities/itg2-util/src/itg2ac-util

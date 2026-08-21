@@ -44,11 +44,11 @@ namespace avcodec
 		#if defined(HAVE_LEGACY_FFMPEG)
 
 		#else
-			#include "ffmpeg/include/libavformat/avformat.h"
-			#include "ffmpeg/include/libavcodec/avcodec.h"
-			#include "ffmpeg/include/libswscale/swscale.h"
-			#include "ffmpeg/include/libavutil/avutil.h"
-			#include "ffmpeg/include/libavutil/pixdesc.h"
+			#include "ffmpeg/libavformat/avformat.h"
+			#include "ffmpeg/libavcodec/avcodec.h"
+			#include "ffmpeg/libswscale/swscale.h"
+			#include "ffmpeg/libavutil/avutil.h"
+			#include "ffmpeg/libavutil/pixdesc.h"
 		#endif
 	}
 	#endif
