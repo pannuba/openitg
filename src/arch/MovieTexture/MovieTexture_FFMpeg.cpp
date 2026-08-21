@@ -18,11 +18,7 @@
 #include <windows.h>
 #endif
 
-#if defined(HAVE_LEGACY_FFMPEG)
-#include "FFMpeg_Helper_Legacy.h"
-#else
 #include "FFMpeg_Helper.h"
-#endif
 
 void MovieTexture_FFMpeg::ConvertFrame()
 {

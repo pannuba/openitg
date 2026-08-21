@@ -26,32 +26,13 @@ namespace avcodec
 #else
 	extern "C"
 	{
-/*  Moved the local imports of ffpmeg 3.1.11 to the block outside HAVE_LEGACY_FFMPEG, bc it's not really legacy.
-    "legacy" version in src/ffmpeg is 0.4.9-pre1. Version in extern/ is 3.X added in 2017, but Windows only.
-    avcodec_decode_video is only in 0.4.9, so I need to use the non-legacy .h .cpp files.
-    (Why can't I just use the legacy ffmpeg with the bundled library? Pretty sure I tried already)
-*/
-		/*#if defined(HAVE_LEGACY_FFMPEG)
-			#include "ffmpeg/include/ffmpeg/avformat.h"
-			#include "ffmpeg/include/ffmpeg/avcodec.h"
-		#else
-			#include <libavformat/avformat.h>
-			#include <libswscale/swscale.h>
-			#include <libavutil/avutil.h>
-			#include <libavutil/pixdesc.h>
-			#include <libavcodec/avcodec.h> // Doesn't work because avcodec_decode_video2 was removed in newer FFMpeg builds (5.0+)
-		#endif*/
-		#if defined(HAVE_LEGACY_FFMPEG)
-
-		#else
-			#include "ffmpeg/libavformat/avformat.h"
-			#include "ffmpeg/libavcodec/avcodec.h"
-			#include "ffmpeg/libswscale/swscale.h"
-			#include "ffmpeg/libavutil/avutil.h"
-			#include "ffmpeg/libavutil/pixdesc.h"
-		#endif
+		#include "ffmpeg/libavformat/avformat.h"
+		#include "ffmpeg/libavcodec/avcodec.h"
+		#include "ffmpeg/libswscale/swscale.h"
+		#include "ffmpeg/libavutil/avutil.h"
+		#include "ffmpeg/libavutil/pixdesc.h"
 	}
-	#endif
+#endif
 	
 	#if !defined (AV_VERSION_INT)
 		#define AV_VERSION_INT(a, b, c) (a<<16 | b<<8 | c)
@@ -63,8 +44,6 @@ struct AVPixelFormat_t
 {
 	int bpp;
 	unsigned masks[4];
-	/*Must #include "FFMpeg_Helper_Legacy.h here or just force the macro */	
-	//OITG_AV_PIXFMT_NAME pf;
 	enum avcodec::AVPixelFormat pf;
 	bool HighColor;
 	bool ByteSwapOnLittleEndian;
