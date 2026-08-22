@@ -32,7 +32,7 @@ bool GradeDisplay::Load( RageTextureID ID )
 	if( bWarn )
 	{
 		CString sError = ssprintf( "The grade graphic '%s' must have either 8 or 16 frames.", ID.filename.c_str() );
-		LOG->Warn( sError );
+		LOG->Warn( "%s", sError.c_str() );
 		Dialog::OK( sError );
 	}
 	return true;

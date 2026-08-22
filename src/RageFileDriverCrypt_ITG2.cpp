@@ -29,7 +29,7 @@ void ShowCryptError()
 	CString sMessage = "Dongle initialization failed.  Retrying in 10 seconds.";
 	CString sCmd = ssprintf( "echo \"%s\"; sleep 10", sMessage.c_str() );
 
-	LOG->Warn( sMessage );
+	LOG->Warn( "%s", sMessage.c_str() );
 
 	int ret = execlp( "xterm", "xterm", "-geometry", "40x8+40",
 		"-font", "-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso10646-1",

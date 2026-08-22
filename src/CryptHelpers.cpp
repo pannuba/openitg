@@ -183,14 +183,14 @@ bool CryptHelpers::VerifyFile( RageFileBasic &file, CString sSignature, CString 
 	if ( ret != CRYPT_OK )
 	{
 		sError = ssprintf("Could not import public key: %s", error_to_string(ret));
-		LOG->Warn(sError);
+		LOG->Warn( "%s", sError.c_str() );
 		return false;
 	}
 	bool bHashed = GetSha1ForFile( file, buf_hash );
 	if ( !bHashed )
 	{
 		sError = ssprintf("Error while SHA1 hashing file");
-		LOG->Warn(sError);
+		LOG->Warn( "%s", sError.c_str() );
 		return false;
 	}
 	
@@ -200,13 +200,13 @@ bool CryptHelpers::VerifyFile( RageFileBasic &file, CString sSignature, CString 
 	if ( ret != CRYPT_OK )
 	{
 		sError = ssprintf("Could not verify hash: %s", error_to_string(ret));
-		LOG->Warn(sError);
+		LOG->Warn( "%s", sError.c_str() );
 		return false;
 	}
 	if ( iMatch == 0 )
 	{
 		sError = "Signature Mismatch";
-		LOG->Warn(sError);
+		LOG->Warn( "%s", sError.c_str() );
 		return false;
 	}
 	return true;

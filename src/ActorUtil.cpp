@@ -336,7 +336,7 @@ Actor* ActorUtil::MakeActor( const RageTextureID &ID )
 				case Dialog::retry:
 					break;
 				case Dialog::ignore:
-					LOG->Warn( sErr );
+					LOG->Warn( "%s", sErr.c_str() );
 					return NULL;
 				default:
 					RageException::Throw(sErr);

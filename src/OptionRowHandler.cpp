@@ -263,7 +263,7 @@ public:
 				if( iFallbackOption == -1 )
 				{
 					CString s = ssprintf("No options in row \"%s\" were selected, and no fallback row found; selected entry 0", m_sName.c_str());
-					LOG->Warn( s );
+					LOG->Warn( "%s", s.c_str() );
 					CHECKPOINT_M( s );
 					iFallbackOption = 0;
 				}

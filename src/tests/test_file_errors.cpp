@@ -190,7 +190,7 @@ int RageFileObjTest::Flush()
 
 #define Fail(s...) \
 	{ \
-		LOG->Warn( s ); break; \
+		LOG->Warn( "%s", s.c_str() ); break; \
 	}
 
 void SanityCheck()

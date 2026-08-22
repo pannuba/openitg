@@ -59,7 +59,7 @@ bool USBDevice::GetInterfaceProperty( const PSTRING &sProperty, const unsigned i
 {
 	if (iInterface > m_sInterfaceDeviceDirs.size() - 1)
 	{
-		LOG->Warn( "Cannot access interface %i with USBDevice interface count %i", iInterface, m_sInterfaceDeviceDirs.size() );
+		LOG->Warn( "Cannot access interface %i with USBDevice interface count %zu", iInterface, m_sInterfaceDeviceDirs.size() );
 		return false;
 	}
 	PSTRING sTargetFile = "/rootfs/sys/bus/usb/devices/" + m_sDeviceDir + ":" + m_sInterfaceDeviceDirs[iInterface] + "/" + sProperty;

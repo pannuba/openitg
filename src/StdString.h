@@ -53,7 +53,7 @@
 //			- Jim Cline
 //			- Jeff Kohn
 //			- Todd Heckel
-//			- Ullrich Pollähne
+//			- Ullrich Pollï¿½hne
 //			- Joe Vitaterna
 //			- Joe Woodbury
 //			- Aaron (no last name)
@@ -447,7 +447,7 @@ public:
 			// <nChars> or the NULL terminator, whichever comes first.  Since we
 			// are about to call a less forgiving overload (in which <nChars>
 			// must be a valid length), we must adjust the length here to a safe
-			// value.  Thanks to Ullrich Pollähne for catching this bug
+			// value.  Thanks to Ullrich Pollï¿½hne for catching this bug
 
 			nChars		= min(nChars, str.length() - nStart);
 
@@ -478,7 +478,7 @@ public:
 			// <nChars> or the NULL terminator, whichever comes first.  Since we
 			// are about to call a less forgiving overload (in which <nChars>
 			// must be a valid length), we must adjust the length here to a safe
-			// value. Thanks to Ullrich Pollähne for catching this bug
+			// value. Thanks to Ullrich Pollï¿½hne for catching this bug
 
 			nChars		= min(nChars, str.length() - nStart);
 
@@ -745,25 +745,22 @@ typedef CStdStr<char>		CStdStringA;	// a better std::string
 // -----------------------------------------------------------------------------
 // FUNCTIONAL COMPARATORS:
 // REMARKS:
-//		These structs are derived from the std::binary_function template.  They
-//		give us functional classes (which may be used in Standard C++ Library
-//		collections and algorithms) that perform case-insensitive comparisons of
-//		CStdString objects.  This is useful for maps in which the key may be the
-//		 proper string but in the wrong case.
+//		These structs give us functional classes (which may be used in Standard
+//		C++ Library collections and algorithms) that perform case-insensitiv
+//		comparisons of CStdString objects. This is useful for maps in which
+//		the key may be the proper string but in the wrong case.
 // -----------------------------------------------------------------------------
 
 #define StdStringLessNoCase		SSLNCA
 #define StdStringEqualsNoCase		SSENCA
 
 struct StdStringLessNoCase
-	: std::binary_function<CStdStringA, CStdStringA, bool>
 {
 	inline
 	bool operator()(const CStdStringA& sLeft, const CStdStringA& sRight) const
 	{ return ssicmp(sLeft.c_str(), sRight.c_str()) < 0; }
 };
 struct StdStringEqualsNoCase
-	: std::binary_function<CStdStringA, CStdStringA, bool>
 {
 	inline
 	bool operator()(const CStdStringA& sLeft, const CStdStringA& sRight) const

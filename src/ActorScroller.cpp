@@ -121,7 +121,7 @@ void ActorScroller::LoadFromNode( const CString &sDir, const XNode *pNode )
 #define GET_VALUE( szName, valueOut ) \
 	if( !pNode->GetAttrValue( szName, valueOut ) ) { \
 		CString sError = ssprintf("Animation in '%s' is missing the value Scroller::%s", sDir.c_str(), szName); \
-		LOG->Warn( sError ); \
+		LOG->Warn( "%s", sError.c_str() ); \
 		Dialog::OK( sError ); \
 	}
 

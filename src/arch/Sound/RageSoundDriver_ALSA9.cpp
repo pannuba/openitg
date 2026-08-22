@@ -352,7 +352,7 @@ CString RageSoundDriver_ALSA9::Init()
 		stream_pool.push_back(s);
 	}
 
-	LOG->Info( "ALSA: Got %i hardware buffers", stream_pool.size() );
+	LOG->Info( "ALSA: Got %zu hardware buffers", stream_pool.size() );
 
 	MixingThread.SetName( "RageSoundDriver_ALSA9" );
 	MixingThread.Create( MixerThread_start, this );
