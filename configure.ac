@@ -346,7 +346,7 @@ echo
 echo "Arcade build		$itg_arcade"
 echo "SSE2 optimizations	$with_sse2 (supported: $have_sse2)"
 echo "SDL			$enable_sdl"
-echo "FFMPEG			$have_ffmpeg ($ffmpeg_option)"
+echo "FFMPEG			$have_ffmpeg"
 echo "libresample		$have_libresample"
 echo "GTK2			$enable_gtk2"
 echo "ALSA			$alsa"

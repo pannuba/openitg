@@ -26,11 +26,11 @@ namespace avcodec
 #else
 	extern "C"
 	{
-		#include "ffmpeg/libavformat/avformat.h"
-		#include "ffmpeg/libavcodec/avcodec.h"
-		#include "ffmpeg/libswscale/swscale.h"
-		#include "ffmpeg/libavutil/avutil.h"
-		#include "ffmpeg/libavutil/pixdesc.h"
+		#include "libavformat/avformat.h"
+		#include "libavcodec/avcodec.h"
+		#include "libswscale/swscale.h"
+		#include "libavutil/avutil.h"
+		#include "libavutil/pixdesc.h"
 	}
 #endif
 	
